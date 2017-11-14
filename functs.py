@@ -6,240 +6,120 @@ E = 0
 F = 0
 M = 0
 R = 0
+#p652
+K = 0
+N = 0
 temp = 0
-from math import sqrt
-def p101():
-	dent = raw_input("")
-	global A,B,C,D,E,F,M,R,temp
-	try:
-		float(dent)
-		M=float(dent)
-	except:
-		temp = 343
+import math
 
-#funzione per la stampa
-	if "#" in dent:
-		if "A" in dent:
-			print A
-		if "B" in dent:
-			print B
-		if "C" in dent:
-			print C
-		if "D" in dent:
-			print D
-		if "E" in dent:
-			print E
-		if "F" in dent:
-			print F
-		if "M" in dent:
-			print M
-		if "R" in dent:
-			print R
-		if "/#" in dent:
-			print ""
-
-#addizione, ossia A = A + reg selezionato. 
+#parser del registro
+def regpars(dent):
+	global A,B,C,D,E,F,M,R,temp, K, N
+	if "A" in dent:
+		return "A"
+	if "B" in dent:
+		return "B"
+	if "C" in dent:
+		return "C"
+	if "D" in dent:
+		return "D"
+	if "E" in dent:
+		return "E"
+	if "F" in dent:
+		return "F"
+	if "M" in dent:
+		return "M"
+	if "K" in dent:
+		return "K"
+	if "N" in dent:
+		return "N"
+	if "R" in dent:
+		return "R"
+	if "S" in dent:
+		return "S"
+	if "/#" in dent:
+		return "irl"
+def ops(dent):
+	global A,B,C,D,E,F,M,R,temp, K, N
 	if "+" in dent:
-		if "A" in dent:
-			M = A
-			A = A*2
-		if "B" in dent:
-			M = B
-			A = A+B
-		if "C" in dent:
-			M = C
-			A = A+C
-		if "D" in dent:
-			M = D
-			A = A+D
-		if "E" in dent:
-			M = E
-			A = A+E
-		if "F" in dent:
-			M = F
-			A = A+F
-		if "M" in dent:
-			A = A+M
-		print A
-
-#moltiplicazione, ossia A = A * reg selezionato. 
-	if "x" in dent:
-		if "A" in dent:
-			M = A
-			A = A*A
-		if "B" in dent:
-			M = B
-			A = A*B
-		if "C" in dent:
-			M = C
-			A = A*C
-		if "D" in dent:
-			M = D
-			A = A*D
-		if "E" in dent:
-			M = E
-			A = A*E
-		if "F" in dent:
-			M = F
-			A = A*F
-		if "M" in dent:
-			A = A*M
-		print A
-
-#sottrazione, ossia A = A - reg selezionato. 
+		return "+"
 	if "-" in dent:
-		if "A" in dent:
-			M = A
-			A = 0
-		if "B" in dent:
-			M = B
-			A = A-B
-		if "C" in dent:
-			M = C
-			A = A-C
-		if "D" in dent:
-			M = D
-			A = A-D
-		if "E" in dent:
-			M = E
-			A = A-E
-		if "F" in dent:
-			M = F
-			A = A-F
-		if "M" in dent:
-			A = A-M
-		print A
-
-#divisione, ossia A = A : reg selezionato. 
+		return "-"
+	if "x" in dent:
+		return "x"
 	if ":" in dent:
-		if "A" in dent:
-			M = A
-			A = 1
-		if "B" in dent:
-			M = B
-			R = A%B
-			A = A/B
-		if "C" in dent:
-			M = C
-			R = A%C
-			A = A/C
-		if "D" in dent:
-			M = D
-			R = A%D
-			A = A/D
-		if "E" in dent:
-			M = E
-			R = A%E
-			A = A/E
-		if "F" in dent:
-			M = F
-			R = A%F
-			A = A/F
-		if "M" in dent:
-			R = A%M
-			A = A/M
-		print A
-#radice quadrata
+		return ":"
+	if "#" in dent:
+		return "#"
 	if "v" in dent:
-		if "A" in dent:
-			A = sqrt(A)
-			M = A*2
-		if "B" in dent:
-			A = sqrt(B)
-			M = A*2
-		if "C" in dent:
-			A = sqrt(C)
-			M = A*2
-		if "D" in dent:
-			A = sqrt(D)
-			M = A*2
-		if "E" in dent:
-			A = sqrt(E)
-			M = A*2
-		if "F" in dent:
-			A = sqrt(F)
-			M = A*2
-		if "M" in dent:
-			A = sqrt(M)
-			M = A*2
-		print A
-#trasferimento da M
+		return "v"
+	if "^" in dent:
+		return "^"
 	if "!" in dent:
+		return "!"
+	if "><" in dent:
+		return "><"
+	if "*" in dent:
+		return "*"
+	if "SIN" in dent:
+		return "SIN"
+	if "COS" in dent:
+		return "COS"
+	if "TAN" in dent:
+		return "TAN"
+	if "ARC" in dent:
+		return "ARC"
+	if "/><" in dent:
+		return "decpart"
+def parse(reg,oper):
+	global A,B,C,D,E,F,M,R,temp, K, N
+	if oper == "+":
+		A = A + eval(reg)
+		M = eval(reg)
+	if oper == "-":
+		A = A - eval(reg)
+		M = eval(reg)
+	if oper == "x":
+		A = A*eval(reg)
+		M = eval(reg)
+	if oper == ":":
+		A = A + eval(reg)
+		R = A%eval(reg)
+		M = eval(reg)
+	if oper == "#":
+		print eval(reg)
+	if oper == "v":
+		A = sqrt(eval(reg))
+		M = A*2
+	if oper == "^":
+		A = eval(reg)
+	if oper == "!":
 		if "A" in dent:
 			A = abs(A)
-		if "B" in dent:
-			B = M
-		if "C" in dent:
-			C = M
-		if "D" in dent:
-			D = M
-		if "E" in dent:
- 			E = M
-		if "F" in dent:
- 			F = M
-#trasferimento in A
-	if "^" in dent:
-		if "B" in dent:
-			A = B
-		if "C" in dent:
-			A = C
-		if "D" in dent:
-			A = D
-		if "E" in dent:
- 			A = E
-		if "F" in dent:
- 			A = F
-		if "M" in dent:
-			A = M
-#scambio con A
-	if "><" in dent:
-		if "B" in dent:
-			temp = B
-			B = A
-			A = temp
-		if "C" in dent:
-			temp = C
-			C = A
-			A = temp
-		if "D" in dent:
-			temp = D
-			D = A
-			A = temp
-		if "E" in dent:
-			temp = E
-			E = A
-			A = temp
-		if "F" in dent:
-			temp = F
-			F = A
-			A = temp
-		if "M" in dent:
-			temp = M
-			M = A
-			A = temp
-		if "/><" in dent: #per la parte decimale di A in M
-			temp = int(A)
-			M = A - int(A)
-
-#funzione per la pulizia
-	if "*" in dent:
-		if "A" in dent:
-			A = 0
-		if "B" in dent:
-			B = 0
-		if "C" in dent:
-			C = 0
-		if "D" in dent:
-			D = 0
-		if "E" in dent:
-			E = 0
-		if "F" in dent:
-			F = 0
-		if "M" in dent:
-			M = 0
-		if "R" in dent:
-			R = 0
-
+		else:
+			opx = "%s = M"%reg
+			eval(opx)
+	if oper == "><":
+		temp = eval(reg)
+		opx = "%s = A"%reg
+		eval(opx)
+		A = temp
+	if oper == "decpart":
+		temp = int(A)
+		M = A - int(A)
+	if oper == "*":
+		opx = "%s = 0"%reg
+		eval(opx)
+	if oper == "SIN":
+		A = sin(eval(reg))
+	if oper == "COS":
+		A = cos(eval(reg))
+	if oper == "ARC":
+		A = arc(eval(reg))
+	if oper == "TAN":
+		A = tan(eval(reg))
+def p101():
+	dent = raw_input("")
 	if "help" in dent:
 		print """
 SIMULATORE DI OLIVETTI PROGRAMMA.
@@ -255,7 +135,11 @@ X^ -> Mette il contenuto del registro X in A
 X! -> Mette il conteniuto del registro M in X
 X>< -> Scambia il contenuto di A e di X
 X* -> Azzera il registro X
+Supporto COS, SIN, ARC e TAN
 """
+	reg = regpars(dent)
+	oper = ops(dent)
+	parse(reg,oper)
 	p101()
 	
 p101()
