@@ -35,8 +35,6 @@ def regpars(dent):
 		return "N"
 	if "R" in dent:
 		return "R"
-	if "S" in dent:
-		return "S"
 	if "/#" in dent:
 		return "irl"
 def ops(dent):
@@ -120,6 +118,7 @@ def parse(reg,oper):
 		A = tan(eval(reg))
 def p101():
 	dent = raw_input("")
+	global M
 	if "help" in dent:
 		print """
 SIMULATORE DI OLIVETTI PROGRAMMA.
@@ -137,6 +136,9 @@ X>< -> Scambia il contenuto di A e di X
 X* -> Azzera il registro X
 Supporto COS, SIN, ARC e TAN
 """
+	if "S" in dent:
+		M = input(">")
+		
 	reg = regpars(dent)
 	oper = ops(dent)
 	parse(reg,oper)
