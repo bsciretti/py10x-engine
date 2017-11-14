@@ -92,7 +92,7 @@ def parse(reg,oper):
 	if oper == "^":
 		A = eval(reg)
 	if oper == "!":
-		if "A" in dent:
+		if "A" in reg:
 			A = abs(A)
 		else:
 			opx = "%s = M"%reg
