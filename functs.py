@@ -59,13 +59,13 @@ def ops(dent):
 		return "><"
 	if "*" in dent:
 		return "*"
-	if "SIN" in dent:
+	if "cos" in dent:
 		return "SIN"
-	if "COS" in dent:
+	if "cos" in dent:
 		return "COS"
-	if "TAN" in dent:
+	if "tan" in dent:
 		return "TAN"
-	if "ARC" in dent:
+	if "arc" in dent:
 		return "ARC"
 	if "/><" in dent:
 		return "decpart"
@@ -87,7 +87,7 @@ def parse(reg,oper):
 	if oper == "#":
 		print eval(reg)
 	if oper == "v":
-		A = sqrt(eval(reg))
+		A = math.sqrt(eval(reg))
 		M = A*2
 	if oper == "^":
 		A = eval(reg)
@@ -109,13 +109,13 @@ def parse(reg,oper):
 		opx = "%s = 0"%reg
 		eval(opx)
 	if oper == "SIN":
-		A = sin(eval(reg))
+		A = math.sin(eval(reg))
 	if oper == "COS":
-		A = cos(eval(reg))
+		A = math.cos(eval(reg))
 	if oper == "ARC":
-		A = arc(eval(reg))
+		A = math.arc(eval(reg))
 	if oper == "TAN":
-		A = tan(eval(reg))
+		A = math.tan(eval(reg))
 def p101():
 	dent = raw_input("")
 	global M
