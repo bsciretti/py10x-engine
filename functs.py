@@ -59,7 +59,7 @@ def ops(dent):
 		return "><"
 	if "*" in dent:
 		return "*"
-	if "cos" in dent:
+	if "sin" in dent:
 		return "SIN"
 	if "cos" in dent:
 		return "COS"
@@ -81,7 +81,7 @@ def parse(reg,oper):
 		A = A*eval(reg)
 		M = eval(reg)
 	if oper == ":":
-		A = A + eval(reg)
+		A = A/eval(reg)
 		R = A%eval(reg)
 		M = eval(reg)
 	if oper == "#":
@@ -95,19 +95,19 @@ def parse(reg,oper):
 		if "A" in reg:
 			A = abs(A)
 		else:
-			opx = "%s = M"%reg
-			exec(opx)
+			opx = str("%s=M"%reg)
+			exec(opx,globals())
 	if oper == "><":
 		temp = eval(reg)
 		opx = "%s = A"%reg
-		exec(opx)
+		exec(opx,globals())
 		A = temp
 	if oper == "decpart":
 		temp = int(A)
 		M = A - int(A)
 	if oper == "*":
 		opx = "%s = 0"%reg
-		exec(opx)
+		exec(opx,globals())
 	if oper == "SIN":
 		A = math.sin(eval(reg))
 	if oper == "COS":
@@ -119,7 +119,9 @@ def parse(reg,oper):
 
 def p101():
 	dent = raw_input("")
-	global M
+	global A,B,C,D,E,F,M,R,temp, K, N
+	print A,B,C,D,E,F,M,R
+	print "A,B,C,D,E,F,M,R"
 	if "help" in dent:
 		print """
 SIMULATORE DI OLIVETTI PROGRAMMA.
@@ -140,16 +142,32 @@ Supporto COS, SIN, ARC e TAN
 	if "S" in dent:
 		M = input(">")
 	
-	if "open" in dent:
-		#non funziona
+	if "debscheda" in dent:
 		a = raw_input("Inserire nome file: ")
-		with open(a) as f:
-			lines = f.readlines()
-		for x in lines:
-			reg = regpars(dent)
-			oper = ops(dent)
-			parse(reg,oper) 
-		
+		with open(a) as fp:  
+			line = fp.readlines()
+			for x in line:
+				print "Operazione", x
+				print A,B,C,D,E,F,M,R
+				print "A,B,C,D,E,F,M,R"
+				if "S" in x:
+					M = input(">")
+				x = x.rstrip()
+				reg = regpars(x)
+				oper = ops(x)
+				parse(reg,oper)
+
+	if "open" in dent:
+		a = raw_input("Inserire nome file: ")
+		with open(a) as fp:  
+			line = fp.readlines()
+			for x in line:
+				if "S" in x:
+					M = input(">")
+				x = x.rstrip()
+				reg = regpars(x)
+				oper = ops(x)
+				parse(reg,oper)
 	reg = regpars(dent)
 	oper = ops(dent)
 	parse(reg,oper)
