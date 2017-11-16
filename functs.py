@@ -1,3 +1,4 @@
+import math
 A = 0
 B = 0
 C = 0
@@ -10,7 +11,6 @@ R = 0
 K = 0
 N = 0
 temp = 0
-import math
 
 #parser del registro
 def regpars(dent):
@@ -96,18 +96,18 @@ def parse(reg,oper):
 			A = abs(A)
 		else:
 			opx = "%s = M"%reg
-			eval(opx)
+			exec(opx)
 	if oper == "><":
 		temp = eval(reg)
 		opx = "%s = A"%reg
-		eval(opx)
+		exec(opx)
 		A = temp
 	if oper == "decpart":
 		temp = int(A)
 		M = A - int(A)
 	if oper == "*":
 		opx = "%s = 0"%reg
-		eval(opx)
+		exec(opx)
 	if oper == "SIN":
 		A = math.sin(eval(reg))
 	if oper == "COS":
@@ -116,6 +116,7 @@ def parse(reg,oper):
 		A = math.arc(eval(reg))
 	if oper == "TAN":
 		A = math.tan(eval(reg))
+
 def p101():
 	dent = raw_input("")
 	global M
@@ -138,6 +139,16 @@ Supporto COS, SIN, ARC e TAN
 """
 	if "S" in dent:
 		M = input(">")
+	
+	if "open" in dent:
+		#non funziona
+		a = raw_input("Inserire nome file: ")
+		with open(a) as f:
+			lines = f.readlines()
+		for x in lines:
+			reg = regpars(dent)
+			oper = ops(dent)
+			parse(reg,oper) 
 		
 	reg = regpars(dent)
 	oper = ops(dent)
