@@ -1,4 +1,4 @@
-import math
+import math, sys, re
 A = 0
 B = 0
 C = 0
@@ -11,6 +11,15 @@ R = 0
 K = 0
 N = 0
 temp = 0
+debugis = 0
+elabvar = 1
+
+try:
+	aj = sys.argv[1]
+	if aj == "debug":
+		debugis = 1
+except:
+	print ""
 
 #parser del registro
 def regpars(dent):
@@ -65,12 +74,16 @@ def ops(dent):
 		return "COS"
 	if "tan" in dent:
 		return "TAN"
+	if "cst" in dent:
+		return "cst"
+	if "cnst" in dent:
+		return "cnst"
 	if "arc" in dent:
 		return "ARC"
 	if "/><" in dent:
 		return "decpart"
 def parse(reg,oper):
-	global A,B,C,D,E,F,M,R,temp, K, N
+	global A,B,C,D,E,F,M,R,temp, K, N, elabvar
 	if oper == "+":
 		A = A + eval(reg)
 		M = eval(reg)
@@ -89,6 +102,15 @@ def parse(reg,oper):
 	if oper == "v":
 		A = math.sqrt(eval(reg))
 		M = A*2
+	if oper == "cst":
+		ll = raw_input("Insert constant:")
+		opx = "%s = %s"%(reg,ll)
+		exec(opx,globals())
+	if oper == "cnst":
+		gl = re.findall("\d+\.*\d*", str(elabvar))
+		gh = gl[0]
+		opx = "%s = %s"%(reg,gh)
+		exec(opx,globals())	
 	if oper == "^":
 		A = eval(reg)
 	if oper == "!":
@@ -119,9 +141,10 @@ def parse(reg,oper):
 
 def p101():
 	dent = raw_input("")
-	global A,B,C,D,E,F,M,R,temp, K, N
-	print A,B,C,D,E,F,M,R
-	print "A,B,C,D,E,F,M,R"
+	global A,B,C,D,E,F,M,R,temp, K, N, debugis, elabvar
+	if debugis == 1:
+		print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
+		print "A\tB\tC\tD\tE\tF\tM\tR"
 	if "help" in dent:
 		print """
 SIMULATORE DI OLIVETTI PROGRAMMA.
@@ -143,15 +166,16 @@ Supporto COS, SIN, ARC e TAN
 		M = input(">")
 	
 	if "debscheda" in dent:
-		a = raw_input("Inserire nome file: ")
+		a = raw_input("Insert file name: ")
 		with open(a) as fp:  
 			line = fp.readlines()
 			for x in line:
-				print "Operazione", x
+				print "Operation:", x
 				print A,B,C,D,E,F,M,R
 				print "A,B,C,D,E,F,M,R"
 				if "S" in x:
 					M = input(">")
+				elabvar = x
 				x = x.rstrip()
 				reg = regpars(x)
 				oper = ops(x)
@@ -164,6 +188,7 @@ Supporto COS, SIN, ARC e TAN
 			for x in line:
 				if "S" in x:
 					M = input(">")
+				elabvar = x
 				x = x.rstrip()
 				reg = regpars(x)
 				oper = ops(x)
