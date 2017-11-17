@@ -16,6 +16,10 @@ You're making
 A-B
 
 Math operation are usable also on other register.
+
+### Order
+You must write every symbolic function with first the register and last the operation. In advanced math operation you can use both "sin A" and "A sin", as you prefer.
+
 ### Basic functions
 The mathematic fundamental operations are:
 * +, that make A = A + X
@@ -42,7 +46,20 @@ Math functions are ispired by Olivetti P652 and are:
 * arc: Arcosine
 * tan: Tangent
 
+### Constant
+Constantsa are numbers definied in the virtual magnetic card with this syntax:
+
+cnst X number
+
+So, if you want to store in D the p value you should write:
+
+cnst D 3.14
+
 ### Jumps
+
+#### IF
+
+#### GOTO
 
 ## Functions
 ### Done
@@ -50,6 +67,7 @@ Math functions are ispired by Olivetti P652 and are:
 * Print functions
 * Math functions
 * Jumps
+* Constant
 ### Working on it
 * String management like P203
 * Realistic system for string in memory
@@ -58,3 +76,4 @@ Math functions are ispired by Olivetti P652 and are:
 * Jumps like P101
 * Possible IF in P652
 * Possible WHILE in P652
+* Constant like P101
