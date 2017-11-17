@@ -9,14 +9,14 @@ This is **not** an emulator. Emulators are another thing, this language coniugat
 ### Basic functions
 ### Print
 There are two instructions related to printing:
-* # prints the value of the given register
-* /# writes a blank line
+* The # prints the value of the given register
+* The /# writes a blank line
 ### Register functions
 Register are like variables. Operation are beetween the main register (A and M) and a given register. Differently from Programma 101 the M register is not implied where there is no register in the command.
-* ><
-* !
-** *Attention: A! gives the abs of A
-* ^
+* The >< 
+* The !
+** *Attention: A! gives the abs of A*
+* The ^
 
 ### Math
 
