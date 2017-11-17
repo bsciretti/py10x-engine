@@ -13,6 +13,8 @@ N = 0
 temp = 0
 debugis = 0
 elabvar = 1
+line = 0
+y = 0
 
 try:
 	aj = sys.argv[1]
@@ -46,6 +48,28 @@ def regpars(dent):
 		return "R"
 	if "/#" in dent:
 		return "irl"
+	if "Vs" in dent: #incondizionato
+		index = re.findall("\d+\.*\d*", str(dent))
+		index = str(index[0])
+		jump(0,index)
+	if "Ws" in dent:  #condizionato
+		index = re.findall("\d+\.*\d*", str(dent))
+		index = str(index[0])
+		jump(1,index)
+
+def jump(tipo, index):
+	global A,B,C,D,E,F,M,R,temp, K, N, elabvar, line, y
+	if tipo == 0:
+		tem1 = "V%s\n"%index
+		ind = line.index(tem1)
+		y = ind
+	if tipo == 1:
+		if A > 0:
+			tem1 = "W%s\n"%index
+			ind = line.index(tem1)
+			y = ind
+		else:
+			print ""
 def ops(dent):
 	global A,B,C,D,E,F,M,R,temp, K, N
 	if "+" in dent:
@@ -83,7 +107,7 @@ def ops(dent):
 	if "/><" in dent:
 		return "decpart"
 def parse(reg,oper):
-	global A,B,C,D,E,F,M,R,temp, K, N, elabvar
+	global A,B,C,D,E,F,M,R,temp, K, N, elabvar, line, y
 	if oper == "+":
 		A = A + eval(reg)
 		M = eval(reg)
@@ -141,7 +165,7 @@ def parse(reg,oper):
 
 def p101():
 	dent = raw_input("")
-	global A,B,C,D,E,F,M,R,temp, K, N, debugis, elabvar
+	global A,B,C,D,E,F,M,R,temp, K, N, debugis, elabvar, line, y
 	if debugis == 1:
 		print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
 		print "A\tB\tC\tD\tE\tF\tM\tR"
@@ -164,15 +188,18 @@ Supporto COS, SIN, ARC e TAN
 """
 	if "S" in dent:
 		M = input(">")
-	
-	if "debscheda" in dent:
+	if "open" in dent:
 		a = raw_input("Insert file name: ")
 		with open(a) as fp:  
 			line = fp.readlines()
-			for x in line:
-				print "Operation:", x
-				print A,B,C,D,E,F,M,R
-				print "A,B,C,D,E,F,M,R"
+			g = len(line)
+			print g
+			while y < g:
+				x = line[y]
+				if debugis == 1:
+					print "Operation:", x
+					print A,B,C,D,E,F,M,R
+					print "A,B,C,D,E,F,M,R"
 				if "S" in x:
 					M = input(">")
 				elabvar = x
@@ -180,8 +207,12 @@ Supporto COS, SIN, ARC e TAN
 				reg = regpars(x)
 				oper = ops(x)
 				parse(reg,oper)
+				y = y+1
+				if y == g:
+					y = 0
+					p101()
 
-	if "open" in dent:
+	if "oldopen" in dent:
 		a = raw_input("Inserire nome file: ")
 		with open(a) as fp:  
 			line = fp.readlines()
