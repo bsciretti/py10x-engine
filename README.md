@@ -13,10 +13,10 @@ There are two instructions related to printing:
 * The /# writes a blank line
 ### Register functions
 Register are like variables. Operation are beetween the main register (A and M) and a given register. Differently from Programma 101 the M register is not implied where there is no register in the command.
-* The >< 
-* The !
-** *Attention: A! gives the abs of A*
-* The ^
+* The >< exchanges the A register with the given register
+* The ! puts M in the given register
+ * *Attention: A! gives the abs of A*
+* The ^ puts the given register in A
 
 ### Math
 
