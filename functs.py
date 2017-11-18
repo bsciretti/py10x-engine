@@ -15,6 +15,13 @@ debugis = 0
 elabvar = 1
 line = 0
 y = 0
+memload = 0
+lngt = 0
+
+def reset():
+	global A,B,C,D,E,F,M,R,temp, K, N, line, y, memload, lngt
+	A=B=C=D=E=F=M=R=temp=K=N=line=y=memload=lngt = 0
+	p101()
 
 try:
 	aj = sys.argv[1]
@@ -165,35 +172,53 @@ def parse(reg,oper):
 
 def p101():
 	dent = raw_input("")
-	global A,B,C,D,E,F,M,R,temp, K, N, debugis, elabvar, line, y
+	global A,B,C,D,E,F,M,R,temp, K, N, debugis, elabvar, line, y, memload, lngt
 	if debugis == 1:
 		print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
 		print "A\tB\tC\tD\tE\tF\tM\tR"
-	if "help" in dent:
-		print """
-SIMULATORE DI OLIVETTI PROGRAMMA.
-Comandi:
-X viene usato come sinonimo di registro, eistono B,C,D,E,F per i dati, A per l'elaborazione,
-M riceve le immissioni e R per il calcolo.
-X+ -> A = A + X (addizione)
-X- -> A = A - X (sottrazione)
-Xx -> A = A * X (moltiplicazione)
-X: -> A = A : X (divisione)
-Xv -> A = radice di X, M = doppio della radice di X
-X^ -> Mette il contenuto del registro X in A
-X! -> Mette il conteniuto del registro M in X
-X>< -> Scambia il contenuto di A e di X
-X* -> Azzera il registro X
-Supporto COS, SIN, ARC e TAN
-"""
 	if "S" in dent:
 		M = input(">")
+	if "EXIT" in dent:
+		exit()
+	if "RESET" in dent:
+		reset()
+	if "memload" in dent:
+		a = raw_input("Insert file name: ")
+		memload = 1
+		with open(a) as fp:  
+			line = fp.readlines()
+			lngt = len(line)
+	if "V" in dent and memload == 1:
+		y = 0
+		index = re.findall("\d+\.*\d*", str(dent))
+		index = str(index[0])
+		jump(0,index)
+		while y < lngt:
+			x = line[y]
+			if debugis == 1:
+				print "Operation:", x
+				print A,B,C,D,E,F,M,R
+				print "A,B,C,D,E,F,M,R"
+			if "S" in x:
+				Mp = raw_input(">")
+				if Mp == "RESET":
+					reset()
+				else:
+					M = eval(Mp)
+			elabvar = x
+			x = x.rstrip()
+			reg = regpars(x)
+			oper = ops(x)
+			parse(reg,oper)
+			y = y+1
+			if y == lngt:
+				y = 0
+				p101()
 	if "open" in dent:
 		a = raw_input("Insert file name: ")
 		with open(a) as fp:  
 			line = fp.readlines()
 			g = len(line)
-			print g
 			while y < g:
 				x = line[y]
 				if debugis == 1:
@@ -201,7 +226,11 @@ Supporto COS, SIN, ARC e TAN
 					print A,B,C,D,E,F,M,R
 					print "A,B,C,D,E,F,M,R"
 				if "S" in x:
-					M = input(">")
+					Mp = raw_input(">")
+					if Mp == "RESET":
+						reset()
+					else:
+						M = eval(Mp)
 				elabvar = x
 				x = x.rstrip()
 				reg = regpars(x)
