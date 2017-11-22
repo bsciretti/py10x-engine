@@ -83,6 +83,9 @@ You can open a magnetic card with three commands:
 * open: open the program and runs it sequentially
 * oldopen: Compatibility mode, does not support jumps
 
+## Differences beetween P101 and this
+* P101 has the RS command that exchanges R and D in magnetic cards introduction because MC introduction deletes D-F registerregisters. In this emulator there is no this deletion so there is no RS
+
 ## Functions
 ### Done
 * Basic functions
