@@ -91,10 +91,11 @@ You can open a magnetic card with three commands:
 * Jumps
 * Constant
 ### Working on it
-* String management like P203
 * Realistic system for string in memory
 * Plotting
 * Direct loading from OS shell
+* Recursion in Memload
+
 ### Information needed
 * Jumps like P101
 * Possible IF in P652
