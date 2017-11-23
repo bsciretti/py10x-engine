@@ -86,6 +86,8 @@ You can open a magnetic card with three commands:
 ## Differences beetween P101 and this
 * P101 has the RS command that exchanges R and D in magnetic cards introduction because MC introduction deletes D-F registerregisters. In this emulator there is no this deletion so there is no RS
 
+## Bug
+* A! does not work as intended
 ## Functions
 ### Done
 * Basic functions
@@ -102,5 +104,4 @@ You can open a magnetic card with three commands:
 ### Information needed
 * Jumps like P101
 * Possible IF in P652
-* Possible WHILE in P652
 * Constant like P101
