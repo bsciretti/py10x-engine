@@ -98,10 +98,11 @@ You can open a magnetic card with three commands:
 ### Working on it
 * Realistic system for string in memory
 * Plotting
+* Jumps and condition like P652
+* Register system with laberls for P652
 * Direct loading from OS shell
 * Recursion in Memload
 
 ### Information needed
 * Jumps like P101
-* Possible IF in P652
 * Constant like P101
