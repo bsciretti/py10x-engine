@@ -10,6 +10,8 @@ In this language all the basic operation are made n the A register, the "accumul
 Store register are: B, C, D, E, F.
 Working register are: M, A, R
 
+The store register may be splitted and the splitted part is wrote with the lowercase letter.
+
 Every operation is made on the A register so if you read:
 B-
 You're making
@@ -74,6 +76,9 @@ A GOTO jump is identifiec by a "Vs" plus a number label and its start point by "
 
 A GOTO is used for starting programs in "memload" loading and jumps everytime, without consideration for the variables.
 
+### Comments
+A comment in a row starts with "|". Comment are shown in debug mode and supported only in "memload"
+
 ### Magnetic card
 Magnetic card is a file with commands written in.
 
@@ -82,6 +87,9 @@ You can open a magnetic card with three commands:
 * memload: Like real P101 saves the program in memory and expect for a "V"+ number instruction for start the program in that point
 * open: open the program and runs it sequentially
 * oldopen: Compatibility mode, does not support jumps
+
+## Debug mode
+In debug mode are shown comment and the register content step-by-step. It's opened with the shell parameter "debug"
 
 ## Differences beetween P101 and this
 * P101 has the RS command that exchanges R and D in magnetic cards introduction because MC introduction deletes D-F registerregisters. In this emulator there is no this deletion so there is no RS
