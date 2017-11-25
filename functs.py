@@ -5,11 +5,13 @@ C = 0
 D = 0
 E = 0
 F = 0
+b = 0
+c = 0
+d = 0
+e = 0
+f = 0
 M = 0
 R = 0
-#p652
-K = 0
-N = 0
 temp = 0
 debugis = 0
 elabvar = 1
@@ -19,8 +21,8 @@ memload = 0
 lngt = 0
 
 def reset():
-	global A,B,C,D,E,F,M,R,temp, K, N, line, y, memload, lngt
-	A=B=C=D=E=F=M=R=temp=K=N=line=y=memload=lngt = 0
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, line, y, memload, lngt
+	A=B=C=D=E=F=M=Rb=c=d=e=f=temp=line=y=memload=lngt = 0
 	p101()
 
 try:
@@ -32,7 +34,7 @@ except:
 
 #parser del registro
 def regpars(dent):
-	global A,B,C,D,E,F,M,R,temp, K, N
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp
 	if "A" in dent:
 		return "A"
 	if "B" in dent:
@@ -65,7 +67,7 @@ def regpars(dent):
 		jump(1,index)
 
 def jump(tipo, index):
-	global A,B,C,D,E,F,M,R,temp, K, N, elabvar, line, y
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, elabvar, line, y
 	if tipo == 0:
 		tem1 = "V%s\n"%index
 		ind = line.index(tem1)
@@ -78,7 +80,7 @@ def jump(tipo, index):
 		else:
 			print ""
 def ops(dent):
-	global A,B,C,D,E,F,M,R,temp, K, N
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp
 	if "+" in dent:
 		return "+"
 	if "-" in dent:
@@ -114,7 +116,7 @@ def ops(dent):
 	if "/><" in dent:
 		return "decpart"
 def parse(reg,oper):
-	global A,B,C,D,E,F,M,R,temp, K, N, elabvar, line, y
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, elabvar, line, y
 	if oper == "+":
 		A = A + eval(reg)
 		M = eval(reg)
@@ -125,9 +127,12 @@ def parse(reg,oper):
 		A = A*eval(reg)
 		M = eval(reg)
 	if oper == ":":
-		A = A/eval(reg)
-		R = A%eval(reg)
-		M = eval(reg)
+		opx = "A = A/%s"%reg
+		exec(opx,globals())	
+		opx = "R = A&%s"%reg
+		exec(opx,globals())	
+		opx = "M = %s"%reg
+		exec(opx,globals())	
 	if oper == "#":
 		print eval(reg)
 	if oper == "v":
@@ -143,21 +148,23 @@ def parse(reg,oper):
 		opx = "%s = %s"%(reg,gh)
 		exec(opx,globals())	
 	if oper == "^":
-		A = eval(reg)
+		opx = "A = %s"%reg
+		exec(opx,globals())	
 	if oper == "!":
-		if "A" in reg:
+		if reg == "A":
 			A = abs(A)
 		else:
 			opx = str("%s=M"%reg)
 			exec(opx,globals())
 	if oper == "><":
-		temp = eval(reg)
+		opx = "temp = %s"%reg
+		exec(opx,globals())
 		opx = "%s = A"%reg
 		exec(opx,globals())
 		A = temp
 	if oper == "decpart":
 		temp = int(A)
-		M = A - int(A)
+		M = int(A - int(A))
 	if oper == "*":
 		opx = "%s = 0"%reg
 		exec(opx,globals())
@@ -172,10 +179,13 @@ def parse(reg,oper):
 
 def p101():
 	dent = raw_input("")
-	global A,B,C,D,E,F,M,R,temp, K, N, debugis, elabvar, line, y, memload, lngt
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, debugis, elabvar, line, y, memload, lngt
 	if debugis == 1:
 		print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
 		print "A\tB\tC\tD\tE\tF\tM\tR"
+		print "Splitted"
+		print "%d\t%d\t%d\t%d\t%d"%(b,c,d,e,f)
+		print "b\tc\td\te\tf"
 	if "S" in dent:
 		M = input(">")
 	if "EXIT" in dent:
@@ -194,17 +204,37 @@ def p101():
 		index = str(index[0])
 		jump(0,index)
 		while y < lngt:
-			x = line[y]
+			Mp = 0
+			load = line[y]
+			h = load.split("|")
+			x = h[0]
 			if debugis == 1:
-				print "Operation:", x
-				print A,B,C,D,E,F,M,R
-				print "A,B,C,D,E,F,M,R"
+				print "---------- \n Operation:", x
+				print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
+				print "A\tB\tC\tD\tE\tF\tM\tR"
+				print "Splitted"
+				print "%d\t%d\t%d\t%d\t%d"%(b,c,d,e,f)
+				print "b\tc\td\te\tf"
+				try:
+					print "Comment: " + h[1]
+				except:
+					print "" 
 			if "S" in x:
-				Mp = raw_input(">")
-				if Mp == "RESET":
+				hel = raw_input(">")
+				if hel == "RESET":
 					reset()
 				else:
-					M = eval(Mp)
+					M = eval(hel)
+			if "Vs" in dent and memload == 1:
+				index = re.findall("\d+\.*\d*", str(dent))
+				index = str(index[0])
+				print index
+				jump(0,index)		
+			if "Ws" in dent and memload == 1:
+				index = re.findall("\d+\.*\d*", str(dent))
+				index = str(index[0])
+				print index
+				jump(1,index)				
 			elabvar = x
 			x = x.rstrip()
 			reg = regpars(x)
@@ -222,9 +252,9 @@ def p101():
 			while y < g:
 				x = line[y]
 				if debugis == 1:
-					print "Operation:", x
-					print A,B,C,D,E,F,M,R
-					print "A,B,C,D,E,F,M,R"
+					print "---------- \n Operation:", x
+					print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
+					print "A\tB\tC\tD\tE\tF\tM\tR"
 				if "S" in x:
 					Mp = raw_input(">")
 					if Mp == "RESET":
