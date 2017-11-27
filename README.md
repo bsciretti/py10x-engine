@@ -28,7 +28,8 @@ The mathematic fundamental operations are:
 * -, that make A = A - X
 * x, that make A = A * X
 * :, that make A = A / X, also saves in R the rest of division
-* v, that make sqrt X, also saves in M 2(sqrt(X))
+* sqrt, that make sqrt X, also saves in M 2(sqrt(X))
+* %, that make the M percentage of A
 * S, take a number and puts it in M
 
 ### Print
@@ -39,9 +40,12 @@ There are two instructions related to printing:
 Registers are like variables. Operation are beetween the main register (A and M) and a given register. Differently from Programma 101 the M register is not implied where there is no register in the command.
 * The >< exchanges the A register with the given register
 * The ! puts M in the given register
-* *Attention: A! gives the abs of A*
 * The ^ puts the given register in A
 
+#### Operations on A
+* A! puts the abs(A) in A
+* /^ deletes decimal part of A
+* />< puts the decimal part of A in M
 ### Math
 Math functions are ispired by Olivetti P652 and are:
 * sin: Sine
