@@ -38,14 +38,17 @@ There are two instructions related to printing:
 * The /# writes a blank line
 ### Register functions
 Registers are like variables. Operation are beetween the main register (A and M) and a given register. Differently from Programma 101 the M register is not implied where there is no register in the command.
-* The >< exchanges the A register with the given register. Attention, if you are working on a splitted register you should werite a space beetween the register name and the operation. For example: "B/ ><" it's ok, "B/><" no.
+* The >< exchanges the A register with the given register. 
 * The ! puts M in the given register
 * The ^ puts the given register in A
+
+Attention, if you are working on a splitted register you should werite a space beetween the register name and the operation. For example: "B/ ><" it's ok, "B/><" no, also "C/ ^" it's ok, "C/^" no.
 
 #### Operations on A
 * A! puts the abs(A) in A
 * /^ deletes decimal part of A
 * />< puts the decimal part of A in M
+
 ### Math
 Math functions are ispired by Olivetti P652 and are:
 * sin: Sine
