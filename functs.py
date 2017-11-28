@@ -37,6 +37,16 @@ def regpars(dent):
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp
 	if "A" in dent:
 		return "A"
+	if "B/" in dent:
+		return "b"
+	if "C/" in dent:
+		return "c"
+	if "D/" in dent:
+		return "d"
+	if "E/" in dent:
+		return "e"
+	if "F/" in dent:
+		return "f"
 	if "B" in dent:
 		return "B"
 	if "C" in dent:
@@ -49,10 +59,6 @@ def regpars(dent):
 		return "F"
 	if "M" in dent:
 		return "M"
-	if "K" in dent:
-		return "K"
-	if "N" in dent:
-		return "N"
 	if "R" in dent:
 		return "R"
 	if "/#" in dent:
@@ -91,14 +97,20 @@ def ops(dent):
 		return ":"
 	if "#" in dent:
 		return "#"
-	if "v" in dent:
+	if "sqrt" in dent:
 		return "v"
 	if "^" in dent:
-		return "^"
+		if "/^" in dent:
+			return "nodec"
+		else:
+			return "^"
 	if "!" in dent:
 		return "!"
 	if "><" in dent:
-		return "><"
+		if "/><" in dent:
+			return "decpart"
+		else:
+			return "><"
 	if "*" in dent:
 		return "*"
 	if "sin" in dent:
@@ -113,8 +125,8 @@ def ops(dent):
 		return "cnst"
 	if "arc" in dent:
 		return "ARC"
-	if "/><" in dent:
-		return "decpart"
+	if "%" in dent:
+		return "%"
 def parse(reg,oper):
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, elabvar, line, y
 	if oper == "+":
@@ -126,15 +138,22 @@ def parse(reg,oper):
 	if oper == "x":
 		A = A*eval(reg)
 		M = eval(reg)
+	if oper == "%":
+		temp = M
+		A = (A/100)*M
+		M = temp
 	if oper == ":":
 		opx = "A = A/%s"%reg
 		exec(opx,globals())	
-		opx = "R = A&%s"%reg
+		opx = "R = int(A)&int(%s)"%reg
 		exec(opx,globals())	
 		opx = "M = %s"%reg
 		exec(opx,globals())	
 	if oper == "#":
 		print eval(reg)
+	if oper == "nodec":
+		M = A
+		A = int(A)
 	if oper == "v":
 		A = math.sqrt(eval(reg))
 		M = A*2
@@ -159,12 +178,15 @@ def parse(reg,oper):
 	if oper == "><":
 		opx = "temp = %s"%reg
 		exec(opx,globals())
+		#print "Temp:",temp
 		opx = "%s = A"%reg
 		exec(opx,globals())
+		#print "M: ",eval(reg)
 		A = temp
+		#print "A:", A
 	if oper == "decpart":
 		temp = int(A)
-		M = int(A - int(A))
+		M = A - int(A)
 	if oper == "*":
 		opx = "%s = 0"%reg
 		exec(opx,globals())
@@ -223,6 +245,11 @@ def p101():
 				hel = raw_input(">")
 				if hel == "RESET":
 					reset()
+				elif "V" in dent and memload == 1:
+					y = 0
+					index = re.findall("\d+\.*\d*", str(dent))
+					index = str(index[0])
+					jump(0,index)
 				else:
 					M = eval(hel)
 			if "Vs" in dent and memload == 1:
@@ -284,7 +311,9 @@ def p101():
 				oper = ops(x)
 				parse(reg,oper)
 	reg = regpars(dent)
+	#print reg
 	oper = ops(dent)
+	#print oper	
 	parse(reg,oper)
 	p101()
 	
