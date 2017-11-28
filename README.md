@@ -117,6 +117,8 @@ In debug mode are shown comment and the register content step-by-step. It's open
 * Register system with laberls for P652
 * Direct loading from OS shell
 * Recursion in Memload
+* /! for change the sigm
+* 
 
 ### Information needed
 * Jumps like P101
