@@ -118,7 +118,8 @@ In debug mode are shown comment and the register content step-by-step. It's open
 * Direct loading from OS shell
 * Recursion in Memload
 * /! for change the sigm
-* 
+* Exp (e^x) and /exp (a^m)
+* Arc 
 
 ### Information needed
 * Jumps like P101
