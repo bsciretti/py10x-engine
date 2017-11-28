@@ -45,7 +45,7 @@ Registers are like variables. Operation are beetween the main register (A and M)
 Attention, if you are working on a splitted register you should werite a space beetween the register name and the operation. For example: "B/ ><" it's ok, "B/><" no, also "C/ ^" it's ok, "C/^" no.
 
 #### Operations on A
-* A! puts the abs(A) in A
+* A>< puts the abs(A) in A
 * /^ deletes decimal part of A
 * />< puts the decimal part of A in M
 
