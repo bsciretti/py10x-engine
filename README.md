@@ -10,7 +10,7 @@ In this language all the basic operation are made n the A register, the "accumul
 Store register are: B, C, D, E, F.
 Working register are: M, A, R
 
-The store register may be splitted and the splitted part is wrote with the lowercase letter.
+The store register may be splitted and the splitted part is wrote with a / afer the register name. For example E/ in E splitted.
 
 Every operation is made on the A register so if you read:
 B-
@@ -38,7 +38,7 @@ There are two instructions related to printing:
 * The /# writes a blank line
 ### Register functions
 Registers are like variables. Operation are beetween the main register (A and M) and a given register. Differently from Programma 101 the M register is not implied where there is no register in the command.
-* The >< exchanges the A register with the given register
+* The >< exchanges the A register with the given register. Attention, if you are working on a splitted register you should werite a space beetween the register name and the operation. For example: "B/ ><" it's ok, "B/><" no.
 * The ! puts M in the given register
 * The ^ puts the given register in A
 
