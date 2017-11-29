@@ -120,6 +120,7 @@ In debug mode are shown comment and the register content step-by-step. It's open
 * /! for change the sigm
 * Exp (e^x) and /exp (a^m)
 * Arc 
+* /^ (puts X in M)
 
 ### Information needed
 * Jumps like P101
