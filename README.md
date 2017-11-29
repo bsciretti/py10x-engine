@@ -121,7 +121,7 @@ In debug mode are shown comment and the register content step-by-step. It's open
 * Exp (e^x) and /exp (a^m)
 * Arc 
 * /^ (puts X in M)
-
+* Jumps labels like P652 (L and J)
 ### Information needed
 * Jumps like P101
 * Constant like P101
