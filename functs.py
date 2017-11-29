@@ -14,6 +14,7 @@ M = 0
 R = 0
 temp = 0
 debugis = 0
+comment = 0
 elabvar = 1
 line = 0
 y = 0
@@ -29,6 +30,8 @@ try:
 	aj = sys.argv[1]
 	if aj == "debug":
 		debugis = 1
+	if aj == "comment":
+		comment = 1
 except:
 	print ""
 
@@ -170,20 +173,19 @@ def parse(reg,oper):
 		opx = "A = %s"%reg
 		exec(opx,globals())	
 	if oper == "!":
+		opx = str("%s=M"%reg)
+		exec(opx,globals())
+	if oper == "><":
 		if reg == "A":
 			A = abs(A)
 		else:
-			opx = str("%s=M"%reg)
+			opx = "temp = %s"%reg
 			exec(opx,globals())
-	if oper == "><":
-		opx = "temp = %s"%reg
-		exec(opx,globals())
-		#print "Temp:",temp
-		opx = "%s = A"%reg
-		exec(opx,globals())
-		#print "M: ",eval(reg)
-		A = temp
-		#print "A:", A
+			#print "Temp:",temp
+			opx = "%s = A"%reg
+			exec(opx,globals())
+			#print "M: ",eval(reg)
+			A = temp
 	if oper == "decpart":
 		temp = int(A)
 		M = A - int(A)
@@ -220,6 +222,12 @@ def p101():
 		with open(a) as fp:  
 			line = fp.readlines()
 			lngt = len(line)
+			for kla in line:
+				if "cnst" in kla:
+					x = kla.rstrip()
+					reg = regpars(x)
+					oper = ops(x)
+					parse(reg,oper)				
 	if "V" in dent and memload == 1:
 		y = 0
 		index = re.findall("\d+\.*\d*", str(dent))
@@ -241,11 +249,16 @@ def p101():
 					print "Comment: " + h[1]
 				except:
 					print "" 
+			if comment == 1:
+				try:
+					print "Comment: " + h[1]
+				except:
+					print "" 
 			if "S" in x:
 				hel = raw_input(">")
 				if hel == "RESET":
 					reset()
-				elif "V" in dent and memload == 1:
+				elif "V" in hel and memload == 1:
 					y = 0
 					index = re.findall("\d+\.*\d*", str(dent))
 					index = str(index[0])
@@ -261,7 +274,7 @@ def p101():
 				index = re.findall("\d+\.*\d*", str(dent))
 				index = str(index[0])
 				print index
-				jump(1,index)				
+				jump(1,index)
 			elabvar = x
 			x = x.rstrip()
 			reg = regpars(x)
