@@ -219,6 +219,21 @@ def p101():
 			ilab = str("V"+str(indis+1))
 			cordg[helab] = ilab 
 			indis = indis +1
+	orig = ["M/","C/","D/","R/"]
+	incorig = {}
+	dest = ["A/", "B/", "E/", "F/"]
+	incordg = {}
+	indis = 0
+	for x in regis:
+		indis = 0
+		for a in orig:
+			helab = a+x
+			ilab = str("Ws"+str(indis+1))
+			incorig[helab] = ilab 		 
+			helab = dest[indis] + x
+			ilab = str("W"+str(indis+1))
+			incordg[helab] = ilab 
+			indis = indis +1
 	dent = raw_input("")
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, debugis, elabvar, line, y, memload, lngt
 	if debugis == 1:
@@ -257,6 +272,18 @@ def p101():
 					o = o+"\n"
 					line[k] = o	
 				k = k +1
+			k = 0
+			while k < lngt:
+				b = line[k].rstrip()
+				if b in incorig:
+					o = incorig[b]
+					o = o+"\n"
+					line[k] = o	
+				if b in incordg:
+					o = incordg[b]
+					o = o+"\n"
+					line[k] = o	
+				k = k +1
 	if "V" in dent and memload == 1:
 		y = 0
 		index = re.findall("\d+\.*\d*", str(dent))
@@ -292,6 +319,9 @@ def p101():
 					index = re.findall("\d+\.*\d*", str(dent))
 					index = str(index[0])
 					jump(0,index)
+				elif "PRINT" in hel:
+					for mel in line:
+						print mel
 				else:
 					M = eval(hel)
 			if "Vs" in dent and memload == 1:
