@@ -202,6 +202,23 @@ def parse(reg,oper):
 		A = math.tan(eval(reg))
 
 def p101():
+	#jumps
+	regis = ["V","W","Y","Z"]
+	orig = ["M","C","D","R"]
+	corig = {}
+	dest = ["A", "B", "E", "F"]
+	cordg = {}
+	indis = 0
+	for x in regis:
+		indis = 0
+		for a in orig:
+			helab = a+x
+			ilab = str("Vs"+str(indis+1))
+			corig[helab] = ilab 		 
+			helab = dest[indis] + x
+			ilab = str("V"+str(indis+1))
+			cordg[helab] = ilab 
+			indis = indis +1
 	dent = raw_input("")
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, debugis, elabvar, line, y, memload, lngt
 	if debugis == 1:
@@ -227,7 +244,19 @@ def p101():
 					x = kla.rstrip()
 					reg = regpars(x)
 					oper = ops(x)
-					parse(reg,oper)				
+					parse(reg,oper)		
+			k = 0
+			while k < lngt:
+				b = line[k].rstrip()
+				if b in corig:
+					o = corig[b]
+					o = o+"\n"
+					line[k] = o	
+				if b in cordg:
+					o = cordg[b]
+					o = o+"\n"
+					line[k] = o	
+				k = k +1
 	if "V" in dent and memload == 1:
 		y = 0
 		index = re.findall("\d+\.*\d*", str(dent))
