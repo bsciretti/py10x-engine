@@ -211,8 +211,8 @@ def p101():
 	indis = 0
 	for x in regis:
 		indis = 0
-		for a in orig:
-			helab = a+x
+		for ga in orig:
+			helab = ga+x
 			ilab = str("Vs"+str(indis+1))
 			corig[helab] = ilab 		 
 			helab = dest[indis] + x
@@ -227,7 +227,7 @@ def p101():
 	for x in regis:
 		indis = 0
 		for a in orig:
-			helab = a+x
+			helab = ga+x
 			ilab = str("Ws"+str(indis+1))
 			incorig[helab] = ilab 		 
 			helab = dest[indis] + x
@@ -248,6 +248,9 @@ def p101():
 		exit()
 	if "RESET" in dent:
 		reset()
+	if "PRINT" in dent and memload == 1:
+		for mel in line:
+			print mel.rstrip()
 	if "memload" in dent:
 		a = raw_input("Insert file name: ")
 		memload = 1
@@ -262,25 +265,25 @@ def p101():
 					parse(reg,oper)		
 			k = 0
 			while k < lngt:
-				b = line[k].rstrip()
-				if b in corig:
-					o = corig[b]
+				ba = line[k].rstrip()
+				if ba in corig:
+					o = corig[ba]
 					o = o+"\n"
 					line[k] = o	
-				if b in cordg:
-					o = cordg[b]
+				if ba in cordg:
+					o = cordg[ba]
 					o = o+"\n"
 					line[k] = o	
 				k = k +1
 			k = 0
 			while k < lngt:
-				b = line[k].rstrip()
-				if b in incorig:
-					o = incorig[b]
+				ba = line[k].rstrip()
+				if ba in incorig:
+					o = incorig[ba]
 					o = o+"\n"
 					line[k] = o	
-				if b in incordg:
-					o = incordg[b]
+				if ba in incordg:
+					o = incordg[ba]
 					o = o+"\n"
 					line[k] = o	
 				k = k +1
@@ -321,7 +324,7 @@ def p101():
 					jump(0,index)
 				elif "PRINT" in hel:
 					for mel in line:
-						print mel
+						print mel.rstrip()
 				else:
 					M = eval(hel)
 			if "Vs" in dent and memload == 1:
