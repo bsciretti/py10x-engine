@@ -209,31 +209,35 @@ def p101():
 	dest = ["A", "B", "E", "F"]
 	cordg = {}
 	indis = 0
+	indes = 0
 	for x in regis:
 		indis = 0
 		for ga in orig:
 			helab = ga+x
-			ilab = str("Vs"+str(indis+1))
+			ilab = str("Vs"+str(indes+1))
 			corig[helab] = ilab 		 
 			helab = dest[indis] + x
-			ilab = str("V"+str(indis+1))
+			ilab = str("V"+str(indes+1))
 			cordg[helab] = ilab 
-			indis = indis +1
+			indis = indis +1	
+			indes = indes + 1	
 	orig = ["M/","C/","D/","R/"]
 	incorig = {}
 	dest = ["A/", "B/", "E/", "F/"]
 	incordg = {}
 	indis = 0
+	indes = 0
 	for x in regis:
 		indis = 0
 		for a in orig:
 			helab = ga+x
-			ilab = str("Ws"+str(indis+1))
+			ilab = str("Ws"+str(indes+1))
 			incorig[helab] = ilab 		 
 			helab = dest[indis] + x
-			ilab = str("W"+str(indis+1))
+			ilab = str("W"+str(indes+1))
 			incordg[helab] = ilab 
 			indis = indis +1
+			indes = indes +1
 	dent = raw_input("")
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, debugis, elabvar, line, y, memload, lngt
 	if debugis == 1:
