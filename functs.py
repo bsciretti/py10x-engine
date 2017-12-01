@@ -90,6 +90,10 @@ def jump(tipo, index):
 			print ""
 def ops(dent):
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp
+	if "/+" in dent:
+		return "inc"
+	if "/-" in dent:
+		return "dec"
 	if "+" in dent:
 		return "+"
 	if "-" in dent:
@@ -141,6 +145,12 @@ def parse(reg,oper):
 	if oper == "x":
 		A = A*eval(reg)
 		M = eval(reg)
+	if oper == "inc":
+		opx = "%s = %s + 1"%(reg,reg)
+		exec(opx,globals())
+	if oper == "dec":
+		opx = "%s = %s - 1"%(reg,reg)
+		exec(opx,globals())
 	if oper == "%":
 		temp = M
 		A = (A/100)*M
