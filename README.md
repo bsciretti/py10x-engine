@@ -11,6 +11,7 @@ Store register are: B, C, D, E, F.
 Working register are: M, A, R
 
 The store register may be splitted and the splitted part is wrote with a / afer the register name. For example E/ in E splitted.
+A splitted register must be write with a space after the /
 
 Every operation is made on the A register so if you read:
 B-
@@ -31,6 +32,7 @@ The mathematic fundamental operations are:
 * sqrt, that make sqrt X, also saves in M 2(sqrt(X))
 * %, that make the M percentage of A
 * S, take a number and puts it in M
+* /+ and /-, that make X = X+-1
 
 ### Print
 There are two instructions related to printing:
@@ -42,8 +44,6 @@ Registers are like variables. Operation are beetween the main register (A and M)
 * The ! puts M in the given register
 * The ^ puts the given register in A
 
-Attention, if you are working on a splitted register you should werite a space beetween the register name and the operation. For example: "B/ ><" it's ok, "B/><" no, also "C/ ^" it's ok, "C/^" no.
-
 #### Operations on A
 * A>< puts the abs(A) in A
 * /^ deletes decimal part of A
@@ -52,14 +52,14 @@ Attention, if you are working on a splitted register you should werite a space b
 ### Math
 Math functions are ispired by Olivetti P652 and are:
 * sin: Sine
-* cos: Cosine
-* arc: Arcosine
-* tan: Tangent
+* cos: Cosine* tan: Tangent
 
 ### Shell commands
 There are some shell commands:
 * RESET: Reset the system
 * EXIT: Close the program
+* PRINT: Print the magnetic carg
+
 ### Constant
 Constantsa are numbers definied in the virtual magnetic card with this syntax:
 
@@ -101,8 +101,6 @@ In debug mode are shown comment and the register content step-by-step. It's open
 ## Differences beetween P101 and this
 * P101 has the RS command that exchanges R and D in magnetic cards introduction because MC introduction deletes D-F registerregisters. In this emulator there is no this deletion so there is no RS
 
-## Bug
-* A! does not work as intended
 ## Functions
 ### Done
 * Basic functions
@@ -123,5 +121,4 @@ In debug mode are shown comment and the register content step-by-step. It's open
 * /^ (puts X in M)
 * Jumps labels like P652 (L and J)
 ### Information needed
-* Jumps like P101
 * Constant like P101
