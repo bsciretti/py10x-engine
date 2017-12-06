@@ -20,9 +20,25 @@ line = 0
 y = 0
 memload = 0
 lngt = 0
+globalized = ["K0"]
+delal = 0
+while delal < 100:
+	pota = "K"+str(delal)
+	globalized.append(pota)
+	delal = delal+1
+
+#for akel in globalized:
+#	hel = "%s = 0"%akel
+#	exec(akel)
 
 def reset():
-	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, line, y, memload, lngt
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, line, y, memload, lngt, globalized
+	for uj in globalized:
+		helb = "global %s"%uj
+		exec(helb)
+	for res in globalized:
+		helb = "%s = 0"
+		exec(helb,globals())
 	A=B=C=D=E=F=M=Rb=c=d=e=f=temp=line=y=memload=lngt = 0
 	p101()
 
@@ -38,8 +54,17 @@ except:
 #parser del registro
 def regpars(dent):
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp
+	for uj in globalized:
+		helb = "global %s"%uj
+		exec(helb)
 	if "A" in dent:
 		return "A"
+	if "K" in dent:
+		m = re.findall("\d+\.*\d*", str(dent))
+		n = m[0]
+		if int(n) >-1 and int(n) < 100:
+			jald = "K"+n
+			return jald
 	if "B/" in dent:
 		return "b"
 	if "C/" in dent:
@@ -89,7 +114,10 @@ def jump(tipo, index):
 		else:
 			print ""
 def ops(dent):
-	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, globalized
+	for uj in globalized:
+		helb = "global %s"%uj
+		exec(helb)
 	if "/+" in dent:
 		return "inc"
 	if "/-" in dent:
@@ -135,7 +163,10 @@ def ops(dent):
 	if "%" in dent:
 		return "%"
 def parse(reg,oper):
-	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, elabvar, line, y
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, elabvar, line, y, globalized
+	for uj in globalized:
+		helb = "global %s"%uj
+		exec(helb)
 	if oper == "+":
 		A = A + eval(reg)
 		M = eval(reg)
