@@ -20,6 +20,9 @@ A-B
 
 Math operation are usable also on other register.
 
+#### K register
+There are 100 (0-99) register that may be directly addressed with the K and the number. They work as normal register.
+
 ### Order
 You must write every symbolic function with first the register and last the operation. In advanced math operation you can use both "sin A" and "A sin", as you prefer.
 
