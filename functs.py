@@ -26,10 +26,9 @@ while delal < 100:
 	pota = "K"+str(delal)
 	globalized.append(pota)
 	delal = delal+1
-
-#for akel in globalized:
-#	hel = "%s = 0"%akel
-#	exec(akel)
+for res in globalized:
+	helb = "%s = 0"%res
+	exec(helb,globals())
 
 def reset():
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, line, y, memload, lngt, globalized
@@ -37,7 +36,7 @@ def reset():
 		helb = "global %s"%uj
 		exec(helb)
 	for res in globalized:
-		helb = "%s = 0"
+		helb = "%s = 0"%res
 		exec(helb,globals())
 	A=B=C=D=E=F=M=Rb=c=d=e=f=temp=line=y=memload=lngt = 0
 	p101()
@@ -148,6 +147,8 @@ def ops(dent):
 			return "><"
 	if "*" in dent:
 		return "*"
+	if "pi" in dent:
+		return "pi"
 	if "sin" in dent:
 		return "SIN"
 	if "cos" in dent:
@@ -182,6 +183,9 @@ def parse(reg,oper):
 	if oper == "dec":
 		opx = "%s = %s - 1"%(reg,reg)
 		exec(opx,globals())
+	if oper == "pi":
+		opx = "%s = math.pi"%(reg)
+		exec(opx,globals())		
 	if oper == "%":
 		temp = M
 		A = (A/100)*M
@@ -287,8 +291,6 @@ def p101():
 		print "Splitted"
 		print "%d\t%d\t%d\t%d\t%d"%(b,c,d,e,f)
 		print "b\tc\td\te\tf"
-	if "S" in dent:
-		M = input(">")
 	if "EXIT" in dent:
 		exit()
 	if "RESET" in dent:
@@ -296,6 +298,8 @@ def p101():
 	if "PRINT" in dent and memload == 1:
 		for mel in line:
 			print mel.rstrip()
+	if "S" in dent:
+		M = input(">")
 	if "memload" in dent:
 		a = raw_input("Insert file name: ")
 		memload = 1
