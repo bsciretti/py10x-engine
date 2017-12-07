@@ -36,7 +36,7 @@ The mathematic fundamental operations are:
 * %, that make the M percentage of A
 * S, take a number and puts it in M
 * /+ and /-, that make X = X+-1
-* pi, that saves the pi (π) value in the given register
+* pi, that saves the pi (π) value in the given register, also the Greek symbol works
 
 ### Print
 There are two instructions related to printing:
