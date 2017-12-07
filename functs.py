@@ -1,3 +1,5 @@
+#!/usr/bin/python
+# -*- coding: UTF-8 -*-
 import math, sys, re
 A = 0
 B = 0
@@ -147,7 +149,7 @@ def ops(dent):
 			return "><"
 	if "*" in dent:
 		return "*"
-	if "pi" in dent:
+	if "pi" in dent or "π" in dent:
 		return "pi"
 	if "sin" in dent:
 		return "SIN"
@@ -442,4 +444,3 @@ def p101():
 	p101()
 	
 p101()
-	
