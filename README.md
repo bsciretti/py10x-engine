@@ -33,7 +33,8 @@ The mathematic fundamental operations are:
 * x, that make A = A * X
 * :, that make A = A / X, also saves in R the rest of division
 * sqrt, that make sqrt X, also saves in M 2(sqrt(X))
-* %, that make the M percentage of A
+* /x, that make the M percentage of A
+* /:, that make the division
 * S, take a number and puts it in M
 * /+ and /-, that make X = X+-1
 * pi, that saves the pi (π) value in the given register, also the Greek symbol works
