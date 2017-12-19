@@ -24,6 +24,7 @@ memload = 0
 lngt = 0
 globalized = ["K0"]
 delal = 0
+commenti = []
 while delal < 100:
 	pota = "K"+str(delal)
 	globalized.append(pota)
@@ -163,7 +164,7 @@ def ops(dent):
 		return "cnst"
 	if "arc" in dent:
 		return "ARC"
-	if "%" in dent:
+	if "/x" in dent:
 		return "%"
 def parse(reg,oper):
 	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, elabvar, line, y, globalized
@@ -205,7 +206,7 @@ def parse(reg,oper):
 		M = A
 		A = int(A)
 	if oper == "v":
-		A = math.sqrt(eval(reg))
+		A = math.sqrt(abs(eval(reg)))
 		M = A*2
 	if oper == "cst":
 		ll = raw_input("Insert constant:")
@@ -286,7 +287,7 @@ def p101():
 			indis = indis +1
 			indes = indes +1
 	dent = raw_input("")
-	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, debugis, elabvar, line, y, memload, lngt
+	global A,B,C,D,E,F,M,R, b, c, d, e, f, temp, debugis, elabvar, commenti, line, y, memload, lngt
 	if debugis == 1:
 		print "%d\t%d\t%d\t%d\t%d\t%d\t%d\t%d"%(A,B,C,D,E,F,M,R)
 		print "A\tB\tC\tD\tE\tF\tM\tR"
@@ -328,6 +329,17 @@ def p101():
 				k = k +1
 			k = 0
 			while k < lngt:
+				try:
+					load = line[y]
+					h = load.split("|")
+					line[y] = h[0]+"\n"
+					commenti.append(h[1])
+					k = k +1
+				except (IndexError):
+					commenti.append("")
+					k = k +1
+			k = 0
+			while k < lngt:
 				ba = line[k].rstrip()
 				if ba in incorig:
 					o = incorig[ba]
@@ -356,12 +368,12 @@ def p101():
 				print "%d\t%d\t%d\t%d\t%d"%(b,c,d,e,f)
 				print "b\tc\td\te\tf"
 				try:
-					print "Comment: " + h[1]
+					print "Comment: " + commenti[y]
 				except:
 					print "" 
 			if comment == 1:
 				try:
-					print "Comment: " + h[1]
+					print "Comment: " + commenti[y]
 				except:
 					print "" 
 			if "S" in x:
