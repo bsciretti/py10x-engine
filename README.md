@@ -57,7 +57,8 @@ Registers are like variables. Operation are beetween the main register (A and M)
 ### Math
 Math functions are ispired by Olivetti P652 and are:
 * sin: Sine
-* cos: Cosine* tan: Tangent
+* cos: Cosine
+* * tan: Tangent
 
 ### Shell commands
 There are some shell commands:
@@ -66,7 +67,7 @@ There are some shell commands:
 * PRINT: Print the magnetic carg
 
 ### Constant
-Constantsa are numbers definied in the virtual magnetic card with this syntax:
+Constants are numbers definied in the virtual magnetic card with this syntax:
 
 cnst X number
 
@@ -104,7 +105,7 @@ You can open a magnetic card with three commands:
 In debug mode are shown comment and the register content step-by-step. It's opened with the shell parameter "debug"
 
 ## Differences beetween P101 and this
-* P101 has the RS command that exchanges R and D in magnetic cards introduction because MC introduction deletes D-F registerregisters. In this emulator there is no this deletion so there is no RS
+* P101 has the RS command that exchanges R and D in magnetic cards introduction because MC introduction deletes D-F registers. In this emulator there is no this deletion so there is no RS
 
 ## Functions
 ### Done
